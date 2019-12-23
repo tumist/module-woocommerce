@@ -57,6 +57,8 @@ add_action('plugins_loaded', 'load_paymentwall_payments', 0);
 function paymentwall_scripts() {
     wp_register_script('placeholder', PW_PLUGIN_URL . '/assets/js/payment.js', array('jquery'), '1', true);
     wp_enqueue_script('placeholder');
+    $ajax_urls = array( 'checkout' => WC_AJAX::get_endpoint('checkout') );
+    wp_localize_script('placeholder', 'ajax_urls', $ajax_urls);
 }
 
 add_action('wp_enqueue_scripts', 'paymentwall_scripts');

@@ -67,7 +67,7 @@ var Brick_Payment = {
     sendPaymentRequest: function () {
         jQuery.ajax({
             type: 'POST',
-            url: '?wc-ajax=checkout',
+            url: ajax_urls.checkout,
             data: jQuery('form.checkout').serialize(),
             dataType: 'json',
             encode: true,
@@ -89,6 +89,10 @@ var Brick_Payment = {
                 } else {
                     Brick_Payment.showNotification(response.message, 'error');
                 }
+            },
+            error: function(response, status, err) {
+                let message = "Error while processing request: " + err;
+		Brick_Payment.showNotification(message, 'error');
             }
         });
     }, showNotification: function (message, type) {
@@ -101,3 +105,4 @@ var Brick_Payment = {
         jQuery('#brick-loading').show();
     }
 };
+
